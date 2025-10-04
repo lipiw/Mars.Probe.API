@@ -8,6 +8,7 @@ class Direction(str, Enum):
     WEST = "WEST"
 
 class IDirectionState(ABC):
+    """Interface do tipo de state."""
     @abstractmethod
     def turn_left(self) -> 'IDirectionState':
         pass
@@ -25,8 +26,8 @@ class IDirectionState(ABC):
     def direction(self) -> Direction:
         pass
 
-# Implementações Concretas para cada estado (direção)
 class NorthState(IDirectionState):
+    """Implementação da Interface Norte."""
     def turn_left(self) -> 'IDirectionState':
         return WestState()
 
@@ -41,6 +42,7 @@ class NorthState(IDirectionState):
         return Direction.NORTH
 
 class EastState(IDirectionState):
+    """Implementação da Interface Leste."""
     def turn_left(self) -> 'IDirectionState':
         return NorthState()
 
@@ -55,6 +57,7 @@ class EastState(IDirectionState):
         return Direction.EAST
 
 class SouthState(IDirectionState):
+    """Implementação da Interface Sul."""
     def turn_left(self) -> 'IDirectionState':
         return EastState()
 
@@ -69,6 +72,7 @@ class SouthState(IDirectionState):
         return Direction.SOUTH
 
 class WestState(IDirectionState):
+    """Implementação da Interface Oeste."""
     def turn_left(self) -> 'IDirectionState':
         return SouthState()
 
