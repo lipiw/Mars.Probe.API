@@ -1,5 +1,9 @@
 from fastapi import FastAPI
 from app.api.endpoints.probe_routes import router as probe_router
+from app.database import engine
+from app.repositories import database_models
+
+database_models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="Sonda em Marte API",
@@ -7,7 +11,6 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Inclui as rotas que definimos no nosso app principal
 app.include_router(probe_router, prefix="/api", tags=["Probes"])
 
 @app.get("/", tags=["Root"])
